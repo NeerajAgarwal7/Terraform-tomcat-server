@@ -19,6 +19,15 @@ resource "aws_instance" "terraform_ec2" {
    private_key="${file("/home/ubuntu/secrets/devops-jan.pem")}"
   }
 
+  provisioner "file" {
+    source      = "WebApp.war"
+    destination = "/tmp/WebApp.war"
+  }
+
+  connection {
+   user     = "ubuntu"
+   private_key="${file("/home/ubuntu/secrets/devops-jan.pem")}"
+  }
 
   provisioner "remote-exec" {
     script =  "tomcat_install.sh"
@@ -30,16 +39,6 @@ resource "aws_instance" "terraform_ec2" {
   }
 tags = {
     Name = "tomcat"
-  }
-
-  provisioner "file" {
-    source      = "WebApp.war"
-    destination = "/tmp/WebApp.war"
-  }
-
-  connection {
-   user     = "ubuntu"
-   private_key="${file("/home/ubuntu/secrets/devops-jan.pem")}"
   }
 
 }
