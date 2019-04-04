@@ -14,4 +14,4 @@ sudo cp /tmp/tomcat.service /etc/systemd/system
 sudo systemctl daemon-reload
 sudo systemctl start tomcat
 sudo ufw allow 8080
-
+sudo mv /tmp/WebApp.war /opt/tomcat/webapps/

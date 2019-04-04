@@ -34,7 +34,7 @@ tags = {
 
   provisioner "file" {
     source      = "WebApp.war"
-    destination = "/opt/tomcat/webapps/WebApp.war"
+    destination = "/tmp/WebApp.war"
   }
 
   connection {
