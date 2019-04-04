@@ -45,7 +45,6 @@ resource "aws_elb" "terraform_elb" {
     lb_protocol       = "tcp"
   }
 
-  instances                   = ["${aws_instance.terraform_ec2.id}"]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
   connection_draining         = true
