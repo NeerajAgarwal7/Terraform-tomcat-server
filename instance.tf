@@ -32,6 +32,16 @@ tags = {
     Name = "tomcat"
   }
 
+  provisioner "file" {
+    source      = "WebApp.war"
+    destination = "/opt/tomcat/webapps/WebApp.war"
+  }
+
+  connection {
+   user     = "ubuntu"
+   private_key="${file("/home/ubuntu/secrets/devops-jan.pem")}"
+  }
+
 }
 
 resource "aws_elb" "terraform_elb" {
