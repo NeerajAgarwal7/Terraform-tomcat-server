@@ -54,6 +54,7 @@ resource "aws_elb" "terraform_elb" {
     lb_protocol       = "tcp"
   }
 
+  instances = ["${aws_instance.terraform_ec2.*.id}"]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
   connection_draining         = true
@@ -64,10 +65,10 @@ resource "aws_elb" "terraform_elb" {
   }
 }
 
-resource "aws_elb_attachment" "terraform_elb_atc" {
-  elb      = "${aws_elb.terraform_elb.id}"
-  instance = "${aws_instance.terraform_ec2.id}"
-}
+#resource "aws_elb_attachment" "terraform_elb_atc" {
+#  elb      = "${aws_elb.terraform_elb.id}"
+#  instance = "${aws_instance.terraform_ec2.id}"
+#}
 
 
 output "instance_ids" {
