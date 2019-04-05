@@ -2,6 +2,8 @@ provider "aws" {
   region = "${var.region}"
 }
 
+data "aws_availability_zones" "available" {}
+
 resource "aws_instance" "terraform_ec2" {
   count 	= "${var.ec2_count}"
   ami           = "${var.ami_id}"
@@ -45,8 +47,7 @@ tags = {
 
 resource "aws_elb" "terraform_elb" {
   name               = "terraform-elb"
-  availability_zones = ["ap-southeast-1a", "ap-southeast-1b", "ap-southeast-1c"]
-
+  availability_zones = ["${data.aws_availability_zones.available.names[0]}", "${data.aws_availability_zones.available.names[1]}", "${data.aws_availability_zones.available.names[2]}"]
   listener {
     instance_port     = 8080
     instance_protocol = "tcp"
